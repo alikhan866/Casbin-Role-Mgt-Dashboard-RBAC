@@ -15,3 +15,30 @@ This application will help you :
 1. https://github.com/alikhan866/Casbin-Role-Mgt-Dashboard-RBAC/blob/master/casbin-role-backend%20(NodeJS%20%2B%20Express)/README.md
 
 2. https://github.com/alikhan866/Casbin-Role-Mgt-Dashboard-RBAC/blob/master/casbin-role-mgt-ui%20(React)/README.md
+
+
+### Sample-useage
+
+Here these 3 rows means
+
+* read-web-courses `policy` has `read` permissions for `unique resource id` 123
+
+* read-web-courses `policy` has `read` permissions for `unique resource id` 456
+
+* read-web-courses `policy` has `read` permissions for `unique resource id` 789
+
+![](images/policy.png)
+
+Here this row means
+
+* `user id` abcd has access to policy of `read-web-courses`
+
+![](images/role.png)
+
+In the enforcer,
+
+* we are checking if a user with `uid` abcd  has access to a resorce with unique resource id 123
+
+* since we assigned `read` permission for `unique resource id` 123 to the policy `read-web-courses` and then assigned that policy to the `user id` 123 , The enforcement result therefore returns `true` 
+
+![](images/enforcer.png)
