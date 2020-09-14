@@ -8,10 +8,3 @@ export const addPolicyList = policyList => {
 export const addRoleList = roleList => {
     return { type:  ADD_ROLE_LIST, listOfRoles: roleList };
 };
-
-// export const numberOfCharacters = number => {
-//     return {
-//         type:NUMBER_OF_CHARACTERS,
-//         numberOfCharacters:number
-//     }
-// }

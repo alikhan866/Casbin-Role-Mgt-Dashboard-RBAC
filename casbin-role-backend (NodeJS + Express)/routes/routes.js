@@ -24,7 +24,7 @@ router.post('/policy', async (req, res, next) => {          //add policy
         const roleName = req.body.policyname;
         const action = req.body.action;
         (await enforcer).addPolicy(roleName, id, action);
-        res.json(res.sendStatus(200));
+        res.sendStatus(200)
     } catch (e) {
         console.log(e)
         res.sendStatus(500)
@@ -47,7 +47,7 @@ router.post('/role', async (req, res, next) => {        //add roles
         const uid = req.body.uid;
         const policyName = req.body.policyname;
         (await enforcer).addGroupingPolicy(uid, policyName);
-        res.json(res.sendStatus(200));
+        res.sendStatus(200)
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
@@ -60,8 +60,8 @@ router.put(['/policy/:id','/role/:id'], async (req, res, next) => {       //upda
         const v0 = req.body.policyname
         const v1 = req.body.u_rid
         const v2 = req.body.action
-        let results = await db.update(req.params.id,v0,v1,v2)
-        res.json(results)
+        await db.update(req.params.id,v0,v1,v2)
+        res.sendStatus(200)
     } catch (e) {
         console.log(500)
         res.sendStatus(500)
@@ -70,8 +70,8 @@ router.put(['/policy/:id','/role/:id'], async (req, res, next) => {       //upda
 
 router.delete(['/policy/:id','/role/:id'], async (req, res, next) => {    //delete policy
     try {
-        let results = await db.delete(req.params.id)
-        res.json(results)
+        await db.delete(req.params.id)
+        res.sendStatus(200)
     } catch (e) {
         console.log(500)
         res.sendStatus(500)

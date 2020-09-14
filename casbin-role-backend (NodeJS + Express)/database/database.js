@@ -1,10 +1,11 @@
 const mysql = require('mysql2')
+const { host, portNumber, databaseUserName, databasePassword, databaseName } = require('../constants/constants')
 
 const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'myhiber',
+    host: host,
+    user: databaseUserName,
+    password: databasePassword,
+    database: databaseName,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
