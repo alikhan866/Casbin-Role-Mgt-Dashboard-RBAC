@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Select } from 'antd';
 import axios from 'axios'
 import classes from './Enforcer.module.css'
+import { hostname } from '../../constants/constants'
 
 const { Option } = Select;
 const Enforcer = () => {
@@ -12,21 +13,20 @@ const Enforcer = () => {
     const [hasPermission, setHasPermission] = useState(null)
 
     const handleSelectChange = (value) => {
-        console.log(`selected ${value}`);
+        // console.log(`selected ${value}`);
         setAction(value)
     }
 
     const EnforceRuleHandler = async () => {
         const response = await axios({
             method: "post",
-            url: "http://localhost:2000/enforce",
+            url: `${hostname}/enforce`,
             data: {
                 sub: uid,
                 obj: urid,
                 act: action
             }
         })
-        console.log(response.data)
         setHasPermission(response.data)
     }
 

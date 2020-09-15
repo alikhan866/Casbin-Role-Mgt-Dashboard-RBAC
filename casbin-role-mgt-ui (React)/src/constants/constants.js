@@ -1,1 +1,1 @@
-export const hostname = 'YOUR HOST NAME HERE'
+export const hostname = 'YOUR BACKEND HOSTNAME HERE'

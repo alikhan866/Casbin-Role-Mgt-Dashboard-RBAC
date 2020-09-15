@@ -1,5 +1,4 @@
 const express = require('express')
-const db = require('../database/database')
 const router = express.Router()
 const { enforcer } = require('../enforcer/enforcer')
 var cors = require('cors')
@@ -9,7 +8,7 @@ router.use(cors())
 router.get('/policy', async (req, res, next) => {       //get policies
 
     try {
-        let results = await db.getPolicy()
+        let results = await (await enforcer).getPolicy()
         res.json(results)
     } catch (e) {
         console.log(500)
@@ -31,9 +30,39 @@ router.post('/policy', async (req, res, next) => {          //add policy
     }
 })
 
+router.put('/policy', async (req, res, next) => {       //update policy
+    try {
+        const new_v0 = req.body.newRow.policyname
+        const new_v1 = req.body.newRow.u_rid
+        const new_v2 = req.body.newRow.action
+
+        const old_v0 = req.body.oldRow.policyname
+        const old_v1 = req.body.oldRow.u_rid
+        const old_v2 = req.body.oldRow.action
+
+        await (await enforcer).removePolicy(old_v0,old_v1,old_v2)
+        await (await enforcer).addPolicy(new_v0,new_v1,new_v2)
+        res.sendStatus(200)
+    } catch (e) {
+        console.log(500)
+        res.sendStatus(500)
+    }
+});
+
+router.delete('/policy', async (req, res, next) => {    //delete policy
+    try {
+        await (await enforcer).removePolicy(req.body.v0,req.body.v1,req.body.v2)
+        res.sendStatus(200)
+    } catch (e) {
+        console.log(500)
+        res.sendStatus(500)
+    }
+});
+
+
 router.get('/role', async (req, res, next) => {         //get roles
     try {
-        let results = await db.getRole()
+        let results = await (await enforcer).getGroupingPolicy()
         res.json(results)
     } catch (e) {
         console.log(500)
@@ -54,13 +83,9 @@ router.post('/role', async (req, res, next) => {        //add roles
     }
 })
 
-
-router.put(['/policy/:id','/role/:id'], async (req, res, next) => {       //update policy
+router.delete('/role', async (req, res, next) => {    //delete policy
     try {
-        const v0 = req.body.policyname
-        const v1 = req.body.u_rid
-        const v2 = req.body.action
-        await db.update(req.params.id,v0,v1,v2)
+        await (await enforcer).removeGroupingPolicy(req.body.v0,req.body.v1)
         res.sendStatus(200)
     } catch (e) {
         console.log(500)
@@ -68,16 +93,22 @@ router.put(['/policy/:id','/role/:id'], async (req, res, next) => {       //upda
     }
 });
 
-router.delete(['/policy/:id','/role/:id'], async (req, res, next) => {    //delete policy
+router.put('/role', async (req, res, next) => {       //update role
     try {
-        await db.delete(req.params.id)
+        const new_v0 = req.body.newRow.policyname
+        const new_v1 = req.body.newRow.u_rid
+
+        const old_v0 = req.body.oldRow.policyname
+        const old_v1 = req.body.oldRow.u_rid
+
+        await (await enforcer).removeGroupingPolicy(old_v0,old_v1)
+        await (await enforcer).addGroupingPolicy(new_v0,new_v1)
         res.sendStatus(200)
     } catch (e) {
         console.log(500)
         res.sendStatus(500)
     }
 });
-
 
 router.post('/enforce' , async (req,res,next) => {
     try {
