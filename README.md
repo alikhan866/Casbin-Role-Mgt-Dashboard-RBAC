@@ -12,7 +12,7 @@ This application will help you :
 
 ### Set-up 
 
-1. https://github.com/alikhan866/Casbin-Role-Mgt-Dashboard-RBAC/blob/master/casbin-role-backend%20(NodeJS%20%2B%20Express)/README.md
+1. https://github.com/alikhan866/Casbin-Role-Mgt-Dashboard-RBAC/blob/master/casbin-role-backend%20(NodeJS%20%2B%20Express%2BgraphQL)/README.md
 
 2. https://github.com/alikhan866/Casbin-Role-Mgt-Dashboard-RBAC/blob/master/casbin-role-mgt-ui%20(React)/README.md
 
