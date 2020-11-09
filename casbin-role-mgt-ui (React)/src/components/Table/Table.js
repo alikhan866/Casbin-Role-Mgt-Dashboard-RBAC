@@ -1,5 +1,4 @@
 import React, { useState, forwardRef, useEffect } from 'react';
-import axios from 'axios'
 import './Table.css'
 
 import MaterialTable from 'material-table';

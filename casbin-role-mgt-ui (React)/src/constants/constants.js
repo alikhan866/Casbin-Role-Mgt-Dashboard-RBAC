@@ -1,1 +1,1 @@
-export const hostname = 'YOUR BACKEND HOSTNAME HERE'
+export const hostname = 'http://localhost:5000'
