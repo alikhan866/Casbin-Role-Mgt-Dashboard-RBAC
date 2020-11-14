@@ -50,6 +50,14 @@ mutation ($uid:String!,$name:String!) {
     }
 }
 `
+export const Enforce = gql `
+mutation ($sub:String!,$obj:String!,$act:String!) {
+        enforce(sub:$sub,obj:$obj,act:$act) {
+          canEnforce
+        }
+}
+`
+
 
 export const getAvailablePolicies = gql`
 {

@@ -1,33 +1,33 @@
 import React, { useState } from 'react'
 import { Select } from 'antd';
-import axios from 'axios'
 import classes from './Enforcer.module.css'
-import { hostname } from '../../constants/constants'
+
+import { useMutation } from "@apollo/client";
+import { Enforce } from '../../queries/queries'
 
 const { Option } = Select;
 const Enforcer = () => {
-
-    const [uid, setUid] = useState()
-    const [urid, setUrid] = useState()
-    const [action, setAction] = useState("read")
-    const [hasPermission, setHasPermission] = useState(null)
+    
+    const [EnforcementResult] = useMutation(Enforce);
+    
+    const [uid, setUid] = useState();
+    const [urid, setUrid] = useState();
+    const [action, setAction] = useState("read");
+    const [hasPermission, setHasPermission] = useState(null);
 
     const handleSelectChange = (value) => {
-        // console.log(`selected ${value}`);
         setAction(value)
     }
 
     const EnforceRuleHandler = async () => {
-        const response = await axios({
-            method: "post",
-            url: `${hostname}/enforce`,
-            data: {
+        const res = await EnforcementResult({
+            variables: {
                 sub: uid,
                 obj: urid,
                 act: action
             }
         })
-        setHasPermission(response.data)
+        setHasPermission(res.data.enforce.canEnforce)
     }
 
     let enforcementResult

@@ -1,6 +1,6 @@
-const express = require('express')
-const cors = require('cors')
-const router = require ('./router/router')
+import express from 'express'
+import cors from 'cors'
+import router from './router/router'
 
 const app = express()
 app.use(cors())

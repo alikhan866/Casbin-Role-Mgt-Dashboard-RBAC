@@ -1,0 +1,5 @@
+export const host = "localhost"
+export const databaseName = "myhiber"
+export const databaseUserName = "root"
+export const databasePassword = "root"
+export const portNumber = "3306"
